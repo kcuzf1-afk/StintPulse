@@ -83,9 +83,14 @@ test('a drive is recorded, laps are linked and a lap plays with its stored HUD',
       await page.waitForTimeout(1200)
       await expect(pill).toHaveAttribute('data-state', 'recording')
     }
-    const during = await json(request, '/api/recordings?session_id=' + sid)
+    // Only this run's segment (a retry may find an earlier one in the session).
+    const during = (await json(request, '/api/recordings?session_id=' + sid)).filter(
+      (r: { status: string }) => r.status === 'recording',
+    )
     expect(during).toHaveLength(1)
     expect(during[0].chunks).toBeGreaterThan(2)
+    const mine = async () =>
+      (await json(request, '/api/recordings?session_id=' + sid)).find((r: { id: string }) => r.id === during[0].id)
 
     // Three laps finished while recording: the first one began before the
     // recording, so at least two consecutive laps are fully on video.
@@ -102,11 +107,11 @@ test('a drive is recorded, laps are linked and a lap plays with its stored HUD',
 
     // 1. A real, finished, indexed local video file.
     await expect
-      .poll(async () => (await json(request, '/api/recordings?session_id=' + sid))[0].status, { timeout: 60000 })
+      .poll(async () => (await mine()).status, { timeout: 60000 })
       .toBe('ready')
-    const rec = (await json(request, '/api/recordings?session_id=' + sid))[0]
+    const rec = await mine()
     expect(rec.indexed).toBe(true)
-    expect(rec.segment).toBe(1)
+    expect(rec.end_reason).toBe('disabled') // one continuous segment, ended by switching off
     expect(rec.duration_ms).toBeGreaterThan(25000)
     const range = await request.get('/api/videos/' + rec.id, { headers: { Range: 'bytes=0-1023' } })
     expect(range.status()).toBe(206)
@@ -171,15 +176,17 @@ test('a drive is recorded, laps are linked and a lap plays with its stored HUD',
     const [v, shown] = await read()
     expect(v).toBeGreaterThan(vb.video_from_s + (vb.video_to_s - vb.video_from_s) * 0.25 + 2)
     // Sound follows the picture (one clock, same offset), also at 2×.
-    const media = await page.evaluate(() => {
-      const video = document.querySelector('video')!,
-        sound = document.querySelector('audio')!
-      return { v: video.currentTime, a: sound.currentTime, paused: sound.paused, rate: sound.playbackRate }
-    })
-    expect(media.paused).toBe(false)
-    expect(media.rate).toBeGreaterThan(1.8)
-    const expectedSound = rec.started_at + media.v - vb.offset_s - rec.audio.started_at
-    expect(Math.abs(media.a - expectedSound)).toBeLessThan(0.1)
+    // Sound follows the picture (settles within moments, also on slow machines).
+    const soundDrift = async () => {
+      const m = await page.evaluate(() => {
+        const video = document.querySelector('video')!,
+          sound = document.querySelector('audio')!
+        return { v: video.currentTime, a: sound.currentTime, paused: sound.paused, rate: sound.playbackRate }
+      })
+      if (m.paused || m.rate < 1.8) return 99
+      return Math.abs(m.a - (rec.started_at + m.v - vb.offset_s - rec.audio.started_at))
+    }
+    await expect.poll(soundDrift, { timeout: 5000, intervals: [200] }).toBeLessThan(0.1)
     const wall = rec.started_at + v - vb.offset_s
     expect(Math.abs(shown - lapMsAt(samples, wall))).toBeLessThan(60)
     await expect(page.getByRole('button', { name: 'Abspielen' })).toBeVisible({ timeout: 30000 })

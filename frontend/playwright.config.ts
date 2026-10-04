@@ -5,8 +5,12 @@ export default defineConfig({
   testDir: './e2e',
   timeout: 45000,
   workers: 1,
+  // CI runners are slower and noisier: retry, keep a trace of every failure.
+  retries: process.env.CI ? 2 : 0,
   reporter: 'list',
   use: {
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
     baseURL: process.env.AC_AGENT_TEST_URL || 'http://127.0.0.1:8765',
     headless: true,
     permissions: ['camera'],

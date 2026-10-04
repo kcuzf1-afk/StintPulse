@@ -34,6 +34,12 @@ jobs:
       - name: Browser integration tests
         shell: pwsh
         run: ./.venv/Scripts/python.exe scripts/browser_tests.py
+      - name: Keep browser test traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-test-results
+          path: frontend/test-results
       - uses: actions/upload-artifact@v4
         with:
           name: StintPulse-Windows
