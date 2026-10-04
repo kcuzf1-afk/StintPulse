@@ -4,7 +4,7 @@
  * Telemetry: the demo source in time-lapse (AC_AGENT_DEMO_RATE, set by
  * scripts/browser_tests.py), i.e. test data separate from any real drive.
  */
-import { test, expect, type APIRequestContext, type Page } from '@playwright/test'
+import { test, expect, devices, type APIRequestContext, type Page } from '@playwright/test'
 
 interface Sample {
   captured_at: number
@@ -63,7 +63,7 @@ test('a missing video source is shown while telemetry keeps running', async ({ p
   }
 })
 
-test('a drive is recorded, laps are linked and a lap plays with its stored HUD', async ({ page, request }) => {
+test('a drive is recorded, laps are linked and a lap plays with its stored HUD', async ({ page, request, browser }) => {
   test.setTimeout(300000)
   const errors: string[] = []
   page.on('pageerror', (e) => errors.push(e.message))
@@ -197,6 +197,17 @@ test('a drive is recorded, laps are linked and a lap plays with its stored HUD',
     )
     await page.getByRole('button', { name: 'Zurück zu Sessions' }).click()
     await expect(page.locator('.lap-list')).toBeVisible()
+
+    // Phone: another lap of the same session video starts at ITS beginning.
+    const { defaultBrowserType: _ignored, ...pixel } = devices['Pixel 7']
+    const phone = await browser.newContext({ ...pixel, baseURL: test.info().project.use.baseURL })
+    const mobile = await phone.newPage()
+    await mobile.goto(`/#/sessions/video/${va.lap_id}`)
+    const mobilePos = async () => Number(await mobile.getByTestId('lap-sync').getAttribute('data-video-s'))
+    await expect.poll(mobilePos, { timeout: 15000 }).toBeGreaterThanOrEqual(va.available_from_s - 0.05)
+    expect(await mobilePos()).toBeLessThan(va.available_to_s)
+    expect(Math.abs((await mobilePos()) - vb.available_from_s)).toBeGreaterThan(1) // not the other lap
+    await phone.close()
     expect(errors).toEqual([])
   } finally {
     await request.patch('/api/settings', { data: { video_mode: 'none', record_auto: false } })

@@ -5,7 +5,7 @@ Not affiliated with or endorsed by Kunos Simulazioni.
 """
 
 APP_NAME = "StintPulse"
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 # GitHub repository ("owner/name") whose releases announce new versions.
 # Empty = no update check at all (nothing is contacted).
 UPDATE_REPO = "kcuzf1-afk/StintPulse"

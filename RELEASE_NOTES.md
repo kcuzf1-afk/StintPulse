@@ -1,3 +1,15 @@
+# StintPulse 0.1.1
+
+**Deutsch**
+- Behoben: Auf dem Handy startete „Onboard ansehen“ bei jeder Runde am Anfang des Session-Videos (also bei der ersten Runde). Jetzt startet jede Runde an ihrem eigenen Beginn – auch wenn der Handy-Browser den ersten Sprung verwirft.
+
+**English**
+- Fixed: on phones, "Watch onboard" started every lap at the beginning of the session video. Each lap now starts at its own beginning.
+
+StintPulse ist ein unabhängiges Projekt und nicht mit Kunos Simulazioni verbunden. Assetto Corsa ist eine Marke von Kunos Simulazioni.
+
+---
+
 # StintPulse 0.1.0
 
 Erste öffentliche Version / first public release.

@@ -200,7 +200,8 @@ test('player: playback label, invalid lap marked, video from the PC app, no live
   render(<LapVideoPlayer lapId="l3" settings={settings} de onClose={() => {}} persist={() => {}} />)
   expect(await screen.findByTestId('playback-tag')).toHaveTextContent('WIEDERGABE')
   await waitFor(() => expect(document.querySelector('video')).toBeTruthy())
-  expect(document.querySelector('video')!.getAttribute('src')).toBe('/api/videos/r1')
+  // Lap start in the URL as well (phones may drop the first JS seek).
+  expect(document.querySelector('video')!.getAttribute('src')).toBe('/api/videos/r1#t=10.000')
   expect(screen.getByText('UNGÜLTIGE RUNDE')).toBeInTheDocument()
   expect(screen.getByTestId('video-coverage')).toHaveTextContent('VIDEO VOLLSTÄNDIG')
   expect(screen.getByRole('combobox', { name: 'Wiedergabegeschwindigkeit' })).toHaveTextContent('0,5×')

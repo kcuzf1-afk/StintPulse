@@ -46,6 +46,10 @@ function loadSound(): SoundPrefs {
   }
 }
 
+/** Video position outside the selected lap (more than a frame or two). */
+const outsideLap = (t: { availableFrom: number; availableTo: number }, v: HTMLVideoElement) =>
+  v.readyState >= 1 && (v.currentTime < t.availableFrom - 0.3 || v.currentTime > t.availableTo + 0.3)
+
 const clock = (s: number) => {
   const v = Math.max(0, s)
   return `${Math.floor(v / 60)}:${(v % 60).toFixed(1).padStart(4, '0')}`
@@ -171,6 +175,9 @@ export default function LapVideoPlayer({
     const tick = () => {
       const v = video.current
       if (v) {
+        // Phones may ignore the first seek (before playback): never let the
+        // session video run outside the selected lap.
+        if (outsideLap(timeline, v) && !v.seeking && v.seekable.length) v.currentTime = timeline.availableFrom
         if (!v.paused && atLapEnd(timeline, v.currentTime)) {
           if (loopRef.current) v.currentTime = timeline.availableFrom
           else {
@@ -232,7 +239,7 @@ export default function LapVideoPlayer({
     const v = video.current
     if (!v || !timeline) return
     if (v.paused) {
-      if (atLapEnd(timeline, v.currentTime)) v.currentTime = timeline.availableFrom
+      if (atLapEnd(timeline, v.currentTime) || outsideLap(timeline, v)) v.currentTime = timeline.availableFrom
       v.play().catch(() => {})
     } else v.pause()
   }
@@ -326,7 +333,8 @@ export default function LapVideoPlayer({
           <div className="onboard-video lap-player-video" ref={box}>
             <video
               ref={video}
-              src={videoUrl(rec.id)}
+              // Start time in the URL: honoured by every browser, also on phones.
+              src={`${videoUrl(rec.id)}#t=${timeline.availableFrom.toFixed(3)}`}
               muted
               playsInline
               preload="auto"
