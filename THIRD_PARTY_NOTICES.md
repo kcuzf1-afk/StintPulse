@@ -1,0 +1,7 @@
+# Third-party notices
+
+The MIT license in `LICENSE` covers the original application source and documentation in this repository. Dependency packages retain their own licenses. The included dashboard build contains React, React DOM, Scheduler, Apache ECharts, ZRender, Lucide React, tslib and the font Titillium Web (package `@fontsource/titillium-web`, SIL Open Font License 1.1, used by the lap-timing HUD). Their license/notice texts are included in `docs/licenses`. The Python environment and PyInstaller distribution install additional packages with the license metadata supplied by each package.
+
+The Assetto Corsa shared-memory layout was independently implemented in Python using the field order and binary types verified against Rombik's `sim_info.py` in `ac-custom-shaders-patch/acc-extension-apps` and mdjarv's MIT-licensed `assettocorsasharedmemory` definitions. Source links, ABI sizes, known discrepancies and field limitations are documented in `docs/DATA_SOURCES.md`. This repository does not bundle either upstream application.
+
+Assetto Corsa is named solely to identify the supported game. The project is independent of the game developer and contains no game assets, protected logos, reference photographs, sponsor identities or copied dashboard graphics. The lap-timing HUD recreates the general layout of TV timing graphics in its own HTML/CSS; it uses no broadcaster, series or team logos and no proprietary broadcast fonts. Screenshots show this application's explicitly synthetic demo mode.

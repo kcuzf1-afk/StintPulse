@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+frontend/dist/
+build/
+dist/
+*.sqlite*
+*.log
+.env
+test-results/
+playwright-report/
+*.egg-info/
+
+*.tsbuildinfo
+BUNDLE_SHA256.json

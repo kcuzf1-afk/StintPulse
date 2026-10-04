@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StintPulse – Telemetrie &amp; Onboard für Assetto Corsa</title>
+<meta name="description" content="StintPulse: kostenlose Telemetrie, Rundenanalyse und Onboard-Video mit Ton für das originale Assetto Corsa. Läuft lokal auf deinem PC, Dashboard im Browser und auf dem Handy.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --bg: #09111c; --panel: #121f30; --border: #23364a; --text: #ecf1f8; --muted: #a6b7c9;
+    --orange: #ff964b; --cyan: #62d9ef; --green: #60e7b0;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 Inter, "Segoe UI", system-ui, sans-serif; }
+  a { color: var(--cyan); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+  header { padding: 22px 0; }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: 1.5px; }
+  .brand img { width: 36px; height: 36px; }
+  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding: 36px 0 56px; }
+  h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.1; margin: 0 0 18px; }
+  h1 span { color: var(--orange); }
+  .lead { color: var(--muted); font-size: 18px; margin: 0 0 26px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .button { display: inline-flex; align-items: center; gap: 10px; background: var(--orange); color: #1b1006; font-weight: 750;
+    padding: 14px 22px; border-radius: 12px; text-decoration: none; }
+  .button.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .small { color: var(--muted); font-size: 13px; }
+  .shot { width: 100%; border-radius: 14px; border: 1px solid var(--border); box-shadow: 0 20px 60px #0008; display: block; }
+  section { padding: 48px 0; border-top: 1px solid var(--border); }
+  h2 { font-size: 28px; margin: 0 0 22px; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+  .card h3 { margin: 0 0 6px; font-size: 17px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .card b { color: var(--orange); }
+  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .shots figure { margin: 0; }
+  figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  ol.steps { padding-left: 22px; margin: 0; }
+  ol.steps li { margin-bottom: 10px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  code { background: #0e1928; border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: 14px; }
+  footer { padding: 34px 0 50px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); }
+  @media (max-width: 860px) {
+    .hero, .shots, .two { grid-template-columns: 1fr; }
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="brand"><img src="assets/icon.svg" alt=""> STINTPULSE</div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div>
+      <h1>Deine Stints.<br><span>Jede Runde verstanden.</span></h1>
+      <p class="lead">Kostenlose Telemetrie, Rundenanalyse und Onboard-Video mit Ton für das originale Assetto Corsa –
+        live im Browser und auf dem Handy. Alles bleibt auf deinem PC.</p>
+      <div class="cta">
+        <a class="button" id="download" href="#installieren">⬇ StintPulse herunterladen</a>
+        <a class="button secondary" href="#funktionen">Funktionen</a>
+      </div>
+      <p class="small" id="download-note">Windows 10/11 · 64 Bit · kostenlos · Version 0.1.0</p>
+    </div>
+    <img class="shot" src="assets/live.png" alt="StintPulse Live-Dashboard mit Rundenzeit, Streckenkarte, Reifen und Sektoren">
+  </div>
+
+  <section id="funktionen">
+    <h2>Was StintPulse kann</h2>
+    <div class="grid">
+      <div class="card"><h3>Live-Dashboard</h3><p>Rundenzeit, Delta, Sektoren, Gang, Pedale, Reifentemperaturen und -drücke, Kraftstoff und Streckenkarte in Echtzeit.</p></div>
+      <div class="card"><h3>Automatische Runden</h3><p>Jede Runde mit offiziellen Sektorzeiten wird gespeichert – inklusive Gültigkeit, Outlaps und theoretischer Bestzeit.</p></div>
+      <div class="card"><h3>Analyse über die Distanz</h3><p>Zwei Runden Meter für Meter vergleichen: Speed, Gas, Bremse, Gang und Delta, dazu Zeitgewinn auf der Karte.</p></div>
+      <div class="card"><h3>Onboard mit Zeiten-HUD</h3><p>Dein OBS-Bild live mit Rundenzeit-Einblendung im TV-Stil – auf dem PC und auf dem Handy.</p></div>
+      <div class="card"><h3>Aufnahme mit Ton</h3><p>Video und <b>Spielsound</b> werden mit aufgenommen. Später jede Runde einzeln ansehen – HUD aus den gespeicherten Daten, synchron.</p></div>
+      <div class="card"><h3>Lokal &amp; privat</h3><p>Kein Konto, keine Cloud, kein Upload. Nur ein optionaler Update-Hinweis fragt bei GitHub nach neuen Versionen.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Einblicke</h2>
+    <div class="shots">
+      <figure><img class="shot" src="assets/analysis.png" alt="Analyse: zwei Runden über die Distanz verglichen"><figcaption>Analyse: zwei Runden über die Distanz, Delta und Sektorvergleich</figcaption></figure>
+      <figure><img class="shot" src="assets/sessions.png" alt="Sessions mit Video-Status je Runde"><figcaption>Sessions: jede Runde mit Video-Status – „Onboard ansehen“ spielt genau diese Runde</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="installieren">
+    <h2>In zwei Minuten startklar</h2>
+    <div class="two">
+      <div class="card">
+        <ol class="steps">
+          <li><b>StintPulse-0.1.0-Setup.exe</b> herunterladen und starten (keine Administratorrechte nötig).</li>
+          <li>Warnt Windows („Der Computer wurde durch Windows geschützt“): <b>Weitere Informationen → Trotzdem ausführen</b>. Das Programm ist noch nicht digital signiert.</li>
+          <li>StintPulse öffnet das Dashboard im Browser. Das schwarze Fenster während der Fahrt offen lassen.</li>
+          <li>Assetto Corsa starten (auch über Content Manager) und auf die Strecke gehen – fertig.</li>
+          <li>Optional: In OBS „Virtuelle Kamera starten“ für Onboard-Video, im Dashboard unter Einstellungen → Netzwerk das Handy verbinden.</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Voraussetzungen</h3>
+        <p>Windows 10 (1809) oder 11, 64 Bit · originales Assetto Corsa (nicht ACC; Custom Shaders Patch nicht nötig) · für Onboard-Video: OBS Studio · aktueller Chrome oder Edge.</p>
+        <h3 style="margin-top:18px">Deine Daten</h3>
+        <p>Fahrten, Videos und Einstellungen liegen in <code>%LOCALAPPDATA%\StintPulse</code>. Deinstallieren löscht sie nicht. Die ZIP-Version ist portabel.</p>
+        <p class="small" style="margin-top:12px">Prüfsummen (SHA-256) stehen in <code>SHA256SUMS.txt</code> beim Download.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  StintPulse ist ein unabhängiges Projekt und nicht mit Kunos Simulazioni verbunden. Assetto Corsa ist eine Marke von Kunos Simulazioni.
+  Open Source unter MIT-Lizenz. <a id="source" href="#">Quellcode &amp; Versionen</a>
+</footer>
+
+<script>
+  // GitHub repository ("owner/name") – the same as UPDATE_REPO in the app.
+  const REPO = 'kcuzf1-afk/StintPulse'
+  if (REPO) {
+    const releases = `https://github.com/${REPO}/releases/latest`
+    document.getElementById('download').href = releases
+    document.getElementById('source').href = `https://github.com/${REPO}`
+  } else {
+    document.getElementById('download-note').textContent = 'Download in Kürze · Windows 10/11 · 64 Bit · kostenlos'
+  }
+</script>
+</body>
+</html>

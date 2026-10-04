@@ -1,0 +1,19 @@
+{
+  "source": "synthetic demo; no AC game attached",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "duration_s": 100.04,
+  "clients": 1,
+  "capture_hz_observed": 59.99,
+  "websocket_hz_observed": 19.42,
+  "websocket_kib_per_s": 134.35,
+  "cpu_percent_mean_one_core": 7.76,
+  "ram_mb_peak": 274.74,
+  "dropped_samples": 0,
+  "websocket_interval_max_ms": 137.01,
+  "database_mb": 10.04,
+  "laps_before": 2,
+  "laps_after": 3,
+  "automatically_saved_laps": 1,
+  "note": "Backend CPU/RAM only; HTTP loopback and one WebSocket consumer. No video/UI or real Windows AC load."
+}

@@ -1,0 +1,58 @@
+:root {
+  --bg: #09111c;
+  --panel: #121f30;
+  --panel-deep: #0e1928;
+  --panel-raised: #192a3d;
+  --border: #23364a;
+  --line: #31495f;
+  --text: #ecf1f8;
+  --muted: #a6b7c9;
+  --faint: #7d93aa;
+  --orange: #ff964b;
+  --cyan: #62d9ef;
+  --green: #60e7b0;
+  --yellow: #ffcc57;
+  --red: #ff6977;
+  --violet: #b77cff;
+  --hud-bg: #14181dd9;
+  /* TV lap-timer palette (broadcast look) */
+  --f1-bg: #0b0b0c;
+  --f1-strip: #1b1b1d;
+  --f1-red: #e10600;
+  --f1-yellow: #f5c518;
+  --f1-green: #2bd15a;
+  --f1-purple: #a43cf0;
+  --f1-gray: #4a4a4e;
+  --hud-line: #ffffff26;
+  /* Lap video timeline: recorded vs. missing video */
+  --video-ok: #62d9ef55;
+  --video-gap: #ff697766;
+  --chart-speed: var(--yellow);
+  --chart-gas: var(--green);
+  --chart-brake: var(--red);
+  --chart-steer: var(--cyan);
+  --status-good: var(--green);
+  --status-warn: var(--yellow);
+  --status-critical: var(--red);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --font-xs: 11px;
+  --font-sm: 12px;
+  --font-base: 14px;
+  --font-md: 16px;
+  --font-lg: 20px;
+  --font-xl: 28px;
+  --font-display: 40px;
+  --radius-sm: 7px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --shadow: 0 8px 28px #00000018;
+  color-scheme: dark;
+  font-family: Inter, 'Segoe UI', Arial, sans-serif;
+  font-synthesis: none;
+}

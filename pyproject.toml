@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools==84.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ac-engineering-data-agent"
+version = "1.0.0"
+description = "Local telemetry, lap analysis and measured coaching for original Assetto Corsa"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "fastapi==0.115.12", "uvicorn==0.34.2", "numpy==2.2.6",
+  "pydantic==2.11.5", "psutil==7.0.0", "websockets==15.0.1"
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.3.5", "httpx==0.28.1", "pyinstaller==6.13.0"]
+parquet = ["pyarrow==20.0.0"]
+
+[project.scripts]
+ac-engineering = "ac_agent.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["backend"]
+
+[tool.pytest.ini_options]
+pythonpath = ["backend"]
+testpaths = ["tests"]
