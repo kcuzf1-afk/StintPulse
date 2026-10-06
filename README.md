@@ -2,7 +2,7 @@
 
 **Telemetrie, Analyse und Onboard-Video für das originale Assetto Corsa – lokal auf deinem PC.**
 
-StintPulse liest während der Fahrt die Telemetrie aus Assetto Corsa, zeichnet jede Runde mit Sektorzeiten auf, zeigt Streckenkarte, Reifen und Delta live im Browser und auf dem Handy, vergleicht Runden über die Distanz und nimmt auf Wunsch das Onboard-Video (OBS Virtual Camera) mit Spielsound auf – jede Runde später mit Zeiten-HUD ansehbar. Alle Daten bleiben auf deinem PC; es gibt kein Konto und keinen Cloud-Upload.
+StintPulse liest während der Fahrt die Telemetrie aus Assetto Corsa, zeichnet jede Runde mit Sektorzeiten auf, zeigt Streckenkarte, Reifen und Delta live im Browser und auf dem Handy, vergleicht Runden über die Distanz und nimmt auf Wunsch das Onboard-Video (OBS Virtual Camera) mit Spielsound auf – jede Runde später mit Zeiten-HUD ansehbar. Der **Setup-Assistent** (Analyse → Setup) schlägt anhand deiner Runden und deiner Rückmeldung bis zu drei geprüfte Setup-Änderungen vor und exportiert sie als neue Setup-Datei. Alle Daten bleiben auf deinem PC; es gibt kein Konto und keinen Cloud-Upload. Einzige Ausnahme ist die optionale KI-Setup-Analyse: Sie ist standardmäßig aus und sendet nur nach deiner Bestätigung und auf Klick zusammengefasste Kennwerte an den gewählten KI-Anbieter ([Details](docs/SETUP_ASSISTANT.md)).
 
 ![Analyse im Demo-Modus](docs/screenshots/analysis-demo.png)
 
@@ -184,7 +184,7 @@ Die Navigation hat fünf Bereiche mit je einem klaren Zweck:
 | Bereich | Zweck |
 |---|---|
 | Live-Dashboard | die laufende Fahrt: Session, aktuelle/beste/letzte Runde, Delta, Kraftstoff mit Reichweite, Tempo/Gang/Drehzahl/Pedale, Streckenkarte, Reifen, Sektoren, Warnungen, kompakte Live-Telemetrie; weitere Fahrzeugdaten aufklappbar |
-| Analyse | Rundenvergleich aus gespeicherten Sessions: Referenz- und Vergleichsrunde wählen (nur kompatible Runden), Diagramme über die Rundendistanz in Metern, Delta-Verlauf, Sektorvergleich, theoretische Bestzeit, Karte mit Zeitgewinn/-verlust, Engineering-Coach; funktioniert ohne laufendes Spiel |
+| Analyse | **Vergleich:** Rundenvergleich aus gespeicherten Sessions: Referenz- und Vergleichsrunde wählen (nur kompatible Runden), Diagramme über die Rundendistanz in Metern, Delta-Verlauf, Sektorvergleich, theoretische Bestzeit, Karte mit Zeitgewinn/-verlust, Engineering-Coach. **Setup:** Setup-Assistent mit Ausgangssetup, Runden, Ziel und Rückmeldung, geprüften Empfehlungen, Export als neue Datei, Versionen und Vorher/Nachher-Vergleich ([Setup-Assistent](docs/SETUP_ASSISTANT.md)). Funktioniert ohne laufendes Spiel. |
 | Onboard | großes Video mit Rundenzeit-HUD, optional Tacho (Tempo, Gang, Pedale); Videoquelle, HUD, Vollbild; Infos-Seitenpanel (standardmäßig zu); Wiedergabe gespeicherter Runden |
 | Sessions | Archiv: Suche, Filter, Rundenauswahl, Import/Export, Backup; **In Analyse vergleichen** übergibt zwei Runden an die Analyse |
 | Einstellungen | Allgemein · Daten und Speicherung · Onboard und HUD · Netzwerk · Erweitert / Diagnose |

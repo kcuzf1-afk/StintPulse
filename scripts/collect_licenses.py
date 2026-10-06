@@ -24,6 +24,13 @@ PYTHON_PACKAGES = [
     "idna",
     "sniffio",
     "colorama",
+    # Setup assistant: official Anthropic SDK and its runtime dependencies.
+    "anthropic",
+    "httpx2",
+    "httpcore2",
+    "truststore",
+    "jiter",
+    "docstring_parser",
 ]
 NODE_PACKAGES = [
     "react",

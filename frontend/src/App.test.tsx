@@ -42,7 +42,7 @@ const settings: Settings = {
   reference_lap_id: null,
   start_with_windows: false,
   open_browser: true,
-  ai_enabled: false,
+  ai_provider: 'off',
   upload_telemetry: false,
 }
 class FakeSocket {

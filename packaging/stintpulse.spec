@@ -32,7 +32,8 @@ a = Analysis([str(root / 'packaging' / 'entry.py')], pathex=[str(root / 'backend
     binaries=[], datas=[(str(root / 'frontend' / 'dist'), 'web'),
         (str(root / 'docs' / 'licenses'), 'licenses'), (str(root / 'LICENSE'), '.'),
         (str(root / 'THIRD_PARTY_NOTICES.md'), '.')],
-    hiddenimports=collect_submodules('uvicorn') + ['websockets.legacy.server', 'ac_agent.windows'],
+    hiddenimports=collect_submodules('uvicorn') + collect_submodules('anthropic')
+        + ['websockets.legacy.server', 'ac_agent.windows'],
     hookspath=[], hooksconfig={}, runtime_hooks=[], excludes=['tkinter', 'pandas', 'matplotlib', 'scipy'],
     noarchive=False)
 pyz = PYZ(a.pure)

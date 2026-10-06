@@ -1,6 +1,14 @@
 # Technische Architektur
 
-Python 3.12 liest den originalen Windows-Speichervertrag. FastAPI liefert JSON, ein WebSocket und den gebauten React-/TypeScript-Client aus. NumPy übernimmt Distanzinterpolation und statistische Analyse; Pandas ist dafür nicht erforderlich. ECharts zeichnet synchronisierte Kanäle, SVG die gemessene Trackmap. Die Videoquelle ist ein unabhängiges Browser-Subsystem. Grundfunktionen haben keine Cloud-Abhängigkeit.
+Python 3.12 liest den originalen Windows-Speichervertrag. FastAPI liefert JSON, ein WebSocket und den gebauten React-/TypeScript-Client aus. NumPy übernimmt Distanzinterpolation und statistische Analyse; Pandas ist dafür nicht erforderlich. ECharts zeichnet synchronisierte Kanäle, SVG die gemessene Trackmap. Die Videoquelle ist ein unabhängiges Browser-Subsystem. Grundfunktionen haben keine Cloud-Abhängigkeit. Der Setup-Assistent besteht aus diesen Modulen:
+
+- `ac_setup.py`: verlustfreie INI-Verarbeitung, Grenzen und Kodierung,
+- `setup_kpis.py`: Kennwerte und Rundenauswahl,
+- `setup_ai.py`: austauschbarer Anbieter, Anthropic-SDK, Schema und deterministische Prüfung,
+- `setup_store.py`: Versionen und Analysen,
+- `setup_api.py`: die Schnittstellen.
+
+Nur auf Klick ruft er den gewählten KI-Anbieter auf.
 
 ```mermaid
 flowchart TD

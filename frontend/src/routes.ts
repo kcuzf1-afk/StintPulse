@@ -7,6 +7,8 @@ export interface Route {
   tab?: SettingsTab
   /** Sessions: lap whose onboard video is played (#/sessions/video/<lapId>). */
   video?: string
+  /** Analysis: lap comparison (default) or the setup assistant (#/analysis/setup). */
+  analysis?: 'setup'
 }
 
 export const PAGES: Page[] = ['live', 'analysis', 'onboard', 'sessions', 'settings']
@@ -47,6 +49,7 @@ export function parseRoute(hash: string): Route {
       return { page: 'settings', tab: 'advanced' }
     return { page: 'settings', tab: base.tab || 'general' }
   }
+  if (base.page === 'analysis' && (parts[1] || '').toLowerCase() === 'setup') return { page: 'analysis', analysis: 'setup' }
   if (head === 'sessions' && parts[1] === 'video' && parts[2] && /^[\w-]{1,64}$/.test(parts[2]))
     return { page: 'sessions', video: parts[2] }
   return { page: base.page }
@@ -55,5 +58,6 @@ export function parseRoute(hash: string): Route {
 export function routeHash(route: Route): string {
   if (route.page === 'settings') return `#/settings/${route.tab || 'general'}`
   if (route.page === 'sessions' && route.video) return `#/sessions/video/${route.video}`
+  if (route.page === 'analysis' && route.analysis === 'setup') return '#/analysis/setup'
   return `#/${route.page}`
 }

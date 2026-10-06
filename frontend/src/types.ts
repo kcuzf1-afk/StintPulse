@@ -166,7 +166,11 @@ export interface Settings {
   start_with_windows: boolean
   update_check?: boolean
   open_browser: boolean
-  ai_enabled: false
+  ai_provider?: 'off' | 'anthropic'
+  ai_model?: string
+  ai_consent?: number
+  ac_install_dir?: string
+  ac_setups_dir?: string
   upload_telemetry: false
 }
 export interface VersionInfo {

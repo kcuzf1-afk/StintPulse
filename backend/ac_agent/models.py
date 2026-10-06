@@ -61,7 +61,7 @@ class Settings(StrictModel):
     record_audio: Literal["game", "system", "off"] = "game"
     # Explicit retention rule: delete the oldest videos when the limit is hit.
     record_delete_oldest: bool = False
-    # Empty: <data folder>ideos. Only changeable on the PC itself.
+    # Empty: <data folder>/videos. Only changeable on the PC itself.
     record_dir: str = Field("", max_length=400)
     visible_widgets: list[str] = Field(
         default_factory=lambda: [
@@ -101,8 +101,16 @@ class Settings(StrictModel):
     # Ask GitHub for a newer release (only when a repository is configured).
     update_check: bool = True
     open_browser: bool = True
-    # No LLM implementation in this release. Local rules only.
-    ai_enabled: Literal[False] = False
+    # Setup assistant. "off": no AI at all; analyses use local rules only.
+    # The API key is NOT a setting (backend secret store, see setup_ai.py).
+    ai_provider: Literal["off", "anthropic"] = "off"
+    ai_model: str = Field("claude-opus-5-5", pattern=r"^[a-z0-9][a-z0-9.\-]{1,63}$")
+    # Version of the data disclosure the user accepted (0 = not yet shown/accepted).
+    ai_consent: int = Field(0, ge=0, le=1000)
+    # Empty: detected automatically (Steam / Documents). Only changeable on the PC.
+    ac_install_dir: str = Field("", max_length=400)
+    ac_setups_dir: str = Field("", max_length=400)
+    # Raw telemetry is never uploaded anywhere.
     upload_telemetry: Literal[False] = False
 
     @model_validator(mode="after")

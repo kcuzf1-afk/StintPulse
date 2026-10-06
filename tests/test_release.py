@@ -36,10 +36,10 @@ def test_update_notice_only_for_newer_releases():
 
     def fetch(repo):
         calls.append(repo)
-        return {"version": "0.2.0", "url": "https://github.com/x/y/releases/tag/v0.2.0", "published_at": None}
+        return {"version": "99.0.0", "url": "https://github.com/x/y/releases/tag/v99.0.0", "published_at": None}
 
     found = updates.check(True, "x/y", fetch, now=1000)
-    assert found["update"]["version"] == "0.2.0" and found["download_url"].endswith("/releases/latest")
+    assert found["update"]["version"] == "99.0.0" and found["download_url"].endswith("/releases/latest")
     updates.check(True, "x/y", fetch, now=2000)
     assert calls == ["x/y"]  # cached, at most every 6 h
     assert updates.check(False, "x/y", fetch)["update"] is None  # switched off: no request

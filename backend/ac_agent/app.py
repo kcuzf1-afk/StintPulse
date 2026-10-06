@@ -32,7 +32,7 @@ from .engine import Engine
 from .models import Settings, new_access_code
 from .recordings import RecordingError, Recordings
 from .relay import OnboardRelay
-from . import APP_NAME, __version__, updates
+from . import APP_NAME, __version__, setup_api, updates
 
 MAX_IMPORT = 64 * 1024**2
 MAX_VIDEO_CHUNK = 32 * 1024**2
@@ -131,7 +131,13 @@ def lap_csv(lap):
 
 
 def create_app(
-    data_dir=None, source=None, start_engine=True, web_dir=None, port=None, audio_factory=None
+    data_dir=None,
+    source=None,
+    start_engine=True,
+    web_dir=None,
+    port=None,
+    audio_factory=None,
+    setup_provider=None,
 ):
     data_root = Path(data_dir or default_data_dir())
     db = Database(data_root / "telemetry.sqlite")
@@ -375,6 +381,15 @@ def create_app(
                 raise HTTPException(
                     422, "Video URL must be http(s) without embedded credentials"
                 )
+        pc_only = ("ai_provider", "ai_model", "ai_consent", "ac_install_dir", "ac_setups_dir")
+        if any(getattr(settings, f) != getattr(engine.settings, f) for f in pc_only):
+            if not is_loopback(request):
+                raise HTTPException(
+                    403, "KI-Anbieter und AC-Ordner können nur am PC selbst geändert werden"
+                )
+            for folder in (settings.ac_install_dir, settings.ac_setups_dir):
+                if folder and not Path(folder).is_absolute():
+                    raise HTTPException(422, "AC-Ordner müssen absolute Pfade sein")
         if settings.record_dir != engine.settings.record_dir:
             if not is_loopback(request):
                 raise HTTPException(
@@ -464,6 +479,8 @@ def create_app(
         db.delete_session(sid)
         engine.update_reference()
         return {"ok": True}
+
+    setup_api.register(app, db, engine, data_root, setup_provider)
 
     # ---------- onboard recording ----------
 

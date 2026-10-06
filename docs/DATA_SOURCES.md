@@ -59,6 +59,7 @@ Wichtig: Feld vorhanden heißt nicht, dass jeder Mod es sinnvoll befüllt. Null 
 - Unter-/Übersteuern und Gegenlenken sind nur kalibrierte Näherungen; ohne erforderliche Eingaben gibt es keine entsprechende Klassifikation.
 - Kurvennummern stammen aus Mindestgeschwindigkeitspunkten. Ein Apex ist ein Mindestgeschwindigkeits-Proxy, kein geometrisch bestätigter Randstein-Apex.
 - DRS-Aktivierung wird als Kanal erfasst. Eine offiziell erlaubte DRS-Zone lässt sich aus den Basisfeldern nicht sicher rekonstruieren und wird deshalb nicht als Karte erfunden.
-- Kein Video aus Shared Memory, keine automatisierte Setup-Änderung, kein LLM und kein externer Telemetrie-Upload.
+- Kein Video aus Shared Memory und kein externer Telemetrie-Upload. Das im Spiel geladene Setup ist nicht lesbar. Der Setup-Assistent ändert nie etwas automatisch: Er exportiert nur nach Auswahl eine neue Datei, und die optionale KI-Analyse sendet nur zusammengefasste Kennwerte.
+- Setup-Grenzen kommen ausschließlich aus `content/cars/<auto>/data/setup.ini` oder einer importierten setup.ini. Die gepackte Datei `data.acd` wird nicht entschlüsselt.
 
 Diese Grenzen sind Datenvertragsentscheidungen. Sie verhindern, dass eine überzeugende Darstellung ungemessene Werte als Tatsachen ausgibt.

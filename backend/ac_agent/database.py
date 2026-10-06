@@ -8,6 +8,7 @@ from pathlib import Path
 import logging
 from .models import ACCESS_CODE, Lap, SessionMeta, Settings, json_safe, new_access_code
 from .laps import utc_now
+from . import setup_store
 
 log = logging.getLogger(__name__)
 
@@ -83,6 +84,7 @@ class Database:
         self.conn.row_factory = sqlite3.Row
         with self.conn:
             self.conn.executescript(SCHEMA)
+            self.conn.executescript(setup_store.SCHEMA)
 
     def close(self):
         with self.lock:
@@ -94,6 +96,7 @@ class Database:
                 "SELECT data_json FROM settings WHERE id=1"
             ).fetchone()
         data = json.loads(row[0]) if row else {}
+        data.pop("ai_enabled", None)  # pre-0.2 placeholder, replaced by ai_provider
         # Access tokens were replaced by 8-digit codes: an old/invalid token is
         # reset to a fresh code; a missing one is created so the PC can show it.
         code = data.get("access_token") or ""
@@ -445,7 +448,7 @@ class Database:
             tables = {row["name"] for row in objects if row["type"] == "table"}
             tables -= VIDEO_TABLES  # never restored: they point to local files
             if (
-                tables != {"sessions", "laps", "track_maps", "settings"}
+                tables - setup_store.TABLES != {"sessions", "laps", "track_maps", "settings"}
                 or backup.execute("PRAGMA application_id").fetchone()[0] != 1094927687
                 or backup.execute("PRAGMA user_version").fetchone()[0] != 1
             ):
@@ -536,6 +539,7 @@ class Database:
                         ),
                     )
                     del lap, raw
+                setup_store.restore_tables(self.conn, backup, smap, lmap)
                 for row in backup.execute("SELECT * FROM track_maps"):
                     key = json.loads(row["key"])
                     data = json.loads(row["data_json"])

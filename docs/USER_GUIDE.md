@@ -13,7 +13,7 @@ Die erste angebrochene Runde wird als unvollständig gespeichert. Ab der nächst
 | Bereich | Zweck |
 |---|---|
 | Live-Dashboard | die laufende Fahrt: Session, aktuelle/beste/letzte Runde, Delta, Kraftstoff mit Reichweite, Tempo/Gang/Drehzahl/Pedale, Streckenkarte, Reifen, Sektoren, Warnungen, kompakte Live-Telemetrie; weitere Fahrzeugdaten aufklappbar |
-| Analyse | Rundenvergleich aus gespeicherten Sessions: Referenz- und Vergleichsrunde wählen (nur kompatible Runden), Diagramme über die Rundendistanz in Metern, Delta-Verlauf, Sektorvergleich, theoretische Bestzeit, Karte mit Zeitgewinn/-verlust, Engineering-Coach; funktioniert ohne laufendes Spiel |
+| Analyse | **Vergleich:** Rundenvergleich aus gespeicherten Sessions mit Diagrammen über die Rundendistanz, Delta, Sektoren, theoretischer Bestzeit, Karte und Engineering-Coach. **Setup:** Setup-Assistent, siehe [Setup-Assistent](SETUP_ASSISTANT.md). Funktioniert ohne laufendes Spiel. |
 | Onboard | großes Video mit Rundenzeit-HUD, optional Tacho (Tempo, Gang, Pedale); Videoquelle, HUD, Vollbild; Infos-Seitenpanel (standardmäßig zu); Wiedergabe gespeicherter Runden |
 | Sessions | Archiv: Suche, Filter, Rundenauswahl, Import/Export, Backup; **In Analyse vergleichen** übergibt zwei Runden an die Analyse |
 | Einstellungen | Allgemein · Daten und Speicherung · Onboard und HUD · Netzwerk · Erweitert / Diagnose |
@@ -75,4 +75,4 @@ Favoriten, aktive Session und gewählte Referenz sind vor automatischer Bereinig
 
 ## Datenschutz und Verbindung
 
-Grundfunktionen sind lokal. Kein KI-Dienst, kein Telemetrie-Upload. Externe Video-URLs werden nur nach manueller Auswahl vom Browser geladen. LAN ist standardmäßig aus; Aktivierung benötigt Token und Neustart. HTTP überträgt auch den Token unverschlüsselt, HTTPS ist über `--cert` und `--key` möglich. PWA und Bildschirmfreigabe benötigen localhost oder vertrauenswürdiges HTTPS. Details in der [README](../README.md).
+Grundfunktionen sind lokal, es gibt keinen Telemetrie-Upload. Die KI-Setup-Analyse ist optional und standardmäßig aus. Sie sendet erst nach Bestätigung der Datenübersicht und nur auf Klick zusammengefasste Kennwerte, Setup-Werte und deine Rückmeldung an den eingestellten Anbieter, aber keine Rohtelemetrie, Videos, Ton, Namen oder IDs. Der API-Schlüssel bleibt verschlüsselt im PC-Programm ([Setup-Assistent](SETUP_ASSISTANT.md)). Externe Video-URLs werden nur nach manueller Auswahl vom Browser geladen. LAN ist standardmäßig aus; Aktivierung benötigt Token und Neustart. HTTP überträgt auch den Token unverschlüsselt, HTTPS ist über `--cert` und `--key` möglich. PWA und Bildschirmfreigabe benötigen localhost oder vertrauenswürdiges HTTPS. Details in der [README](../README.md).

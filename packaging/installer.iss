@@ -2,7 +2,7 @@
 ; which passes /DAppVersion from backend\ac_agent\__init__.py.
 #define AppName "StintPulse"
 #ifndef AppVersion
-  #define AppVersion "0.1.1"
+  #define AppVersion "0.2.0"
 #endif
 #define AppExe "StintPulse.exe"
 

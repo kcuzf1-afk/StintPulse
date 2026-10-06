@@ -152,7 +152,7 @@ Es handelt sich um einen echten lokalen Datenpfad mit einem zusätzlichen Demo-M
 - Replay-Video wird manuell über Offset synchronisiert; Video liegt nicht im Session-Backup. Browser-PiP und Capture benötigen Browserunterstützung/Berechtigung.
 - Die laufende Companion-App verbindet sich beim Erkennen des Spiels automatisch. Ein separater Betriebssystem-Dienst, der eine zuvor nicht gestartete App beim Spielstart startet, ist nicht enthalten. Windows-Autostart ist in der gepackten EXE manuell aktivierbar.
 - PWA-Cache enthält nur die App-Hülle; keine vollständige Offline-Analyse ohne Backend. LAN-HTTP ist unverschlüsselt; vertrauenswürdiges HTTPS ist über Zertifikat/Schlüssel möglich. Eigene DNS-Hostnamen sind nicht in der Host-Allowlist; für LAN die private IP verwenden.
-- Kein LLM und kein Uploadpfad. Lokale Analysen benötigen keine Cloud. Parquet erfordert das ausdrücklich optionale Paket und ist nicht Teil der Standard-EXE.
+- Die KI-Setup-Analyse (optional, standardmäßig aus) ist der einzige Pfad, der Daten nach außen sendet. Sie sendet nur zusammengefasste Kennwerte nach Zustimmung und auf Klick. Ihre Antwortverarbeitung ist mit kontrollierten Testantworten und einem Test-Client geprüft, ohne echten KI-Aufruf. Lokale Analysen benötigen keine Cloud. Parquet erfordert das ausdrücklich optionale Paket und ist nicht Teil der Standard-EXE.
 
 ## Reproduktion auf Windows
 

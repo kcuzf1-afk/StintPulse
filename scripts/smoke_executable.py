@@ -27,6 +27,12 @@ with tempfile.TemporaryDirectory(prefix="ac-agent-smoke-") as directory:
             str(port),
         ],
         creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0,
+        # Temporary AC folders: the smoke test never reads or writes real ones.
+        env={
+            **os.environ,
+            "AC_AGENT_AC_DIR": str(Path(directory) / "ac"),
+            "AC_AGENT_SETUPS_DIR": str(Path(directory) / "setups"),
+        },
     )
     try:
         deadline = time.monotonic() + 40
@@ -71,7 +77,12 @@ with tempfile.TemporaryDirectory(prefix="ac-agent-smoke-") as directory:
         )
         if not sessions or sessions[0]["lap_count"] < 2:
             raise RuntimeError("Packaged demo did not persist its comparison laps")
-        print("Packaged demo, stored laps and dashboard assets smoke test passed")
+        setup = json.load(
+            urllib.request.urlopen(f"http://127.0.0.1:{port}/api/setup/status", timeout=3)
+        )
+        if not setup["ai"]["sdk"] or setup["ai"]["state"] != "off":
+            raise RuntimeError("Setup assistant: Anthropic SDK missing in the package")
+        print("Packaged demo, stored laps, dashboard assets and setup assistant smoke test passed")
     finally:
         if process.poll() is None:
             if os.name == "nt":

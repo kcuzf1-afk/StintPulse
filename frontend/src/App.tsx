@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
+import { Suspense, lazy, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { BarChart3, Database, LayoutDashboard, Maximize, Settings2, ShieldCheck, Video, Wifi, X } from 'lucide-react'
 import type { Diagnostics, Frame, LapSummary, Sample, Session, Settings, Track, VersionInfo } from './types'
 import { api, saveToken, uploadBytes, websocket } from './api'
@@ -9,6 +9,8 @@ import { buildLiveHud, buildReplayHud, type HudModel } from './hud'
 import { parseRoute, routeHash, type Page, type Route, type SettingsTab } from './routes'
 import LiveDashboard from './LiveDashboard'
 import AnalysisView from './AnalysisView'
+// Loaded on demand: the setup assistant is only needed under Analyse → Setup.
+const SetupAssistant = lazy(() => import('./setup/SetupAssistant'))
 import OnboardView, { type ReplayState } from './OnboardView'
 import SessionsView from './SessionsView'
 import SettingsView from './SettingsView'
@@ -522,6 +524,31 @@ export default function App() {
             />
           )}
           {route.page === 'analysis' && (
+            <nav className="settings-tabs analysis-tabs" role="tablist" aria-label={tr('Analysebereiche', 'Analysis sections')}>
+              <button
+                role="tab"
+                aria-selected={route.analysis !== 'setup'}
+                className={route.analysis !== 'setup' ? 'active' : ''}
+                onClick={() => navigate({ page: 'analysis' })}
+              >
+                {tr('Vergleich', 'Comparison')}
+              </button>
+              <button
+                role="tab"
+                aria-selected={route.analysis === 'setup'}
+                className={route.analysis === 'setup' ? 'active' : ''}
+                onClick={() => navigate({ page: 'analysis', analysis: 'setup' })}
+              >
+                {tr('Setup', 'Setup')}
+              </button>
+            </nav>
+          )}
+          {route.page === 'analysis' && route.analysis === 'setup' && (
+            <Suspense fallback={<div className="notice compact-hint">{tr('Lade Setup-Assistent …', 'Loading setup assistant …')}</div>}>
+              <SetupAssistant liveCar={frame.meta ? { car: frame.meta.car, track: frame.meta.track } : null} />
+            </Suspense>
+          )}
+          {route.page === 'analysis' && route.analysis !== 'setup' && (
             <AnalysisView
               settings={settings}
               de={de}
